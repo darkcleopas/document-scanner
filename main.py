@@ -34,7 +34,7 @@ def scan_document(img, img_name="scanned_img", save_steps=True, show_steps=True)
     cnt = max(contours, key = cv2.contourArea)
     x, y, w, h = cv2.boundingRect(cnt)  
 
-    cropped_img = img[y:y+h, x:x+w]
+    cropped_img = orig_img[y:y+h, x:x+w]
     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 3)
     # cv2.drawContours(img, cnt, -1, (0, 255, 0), 3)
 
