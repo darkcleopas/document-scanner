@@ -34,7 +34,7 @@ def get_edges(img):
     return ditaled_img_2, steps
 
 
-def scan_document(img, img_name, save_steps=True, show_steps=True):
+def scan_img(img, img_name, save_steps=True, show_steps=True):
     img = resize_img(img)
     orig_img = img.copy()
     edged_img, img_processing_steps = get_edges(img)

@@ -3,7 +3,7 @@ import cv2
 import os
 
 from config import IMG_DIR, OUT_DIR
-from src.scan_document import scan_document
+from src.scan_img import scan_img
 
 
 # ap = argparse.ArgumentParser(description="Document Scanner")
@@ -24,5 +24,5 @@ print(img_list)
 for img_file in img_list:
     img_name = img_file.split(".")[0]
     img = cv2.imread(f"{IMG_DIR}/{img_file}")
-    scanned_doc = scan_document(img, img_name=img_name, show_steps=False)
+    scanned_doc = scan_img(img, img_name=img_name, show_steps=False)
     cv2.imwrite(f"{OUT_DIR}/{img_name}/Document scanned - {img_name}.png", scanned_doc)
