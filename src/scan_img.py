@@ -1,9 +1,25 @@
 import cv2
 import os
 import numpy as np
+from PIL import ImageEnhance
 
-from config import OUT_DIR
-from src.utils import order_points, resize_img, four_point_transform
+from config import OUT_DIR, BRIGHTNESS, COLOR, CONTRAST, SHARPNESS
+from src.utils import order_points, resize_img, four_point_transform, pil_to_cv2_image, cv2_to_pil_image
+
+
+def image_enhancement(img):
+    pil_img = cv2_to_pil_image(img)
+    enhanced_img = pil_img.copy()
+    curr_col = ImageEnhance.Color(enhanced_img)
+    enhanced_img = curr_col.enhance(COLOR)
+    curr_bright = ImageEnhance.Color(enhanced_img)
+    enhanced_img = curr_bright.enhance(BRIGHTNESS)
+    curr_sharp = ImageEnhance.Sharpness(enhanced_img)
+    enhanced_img = curr_sharp.enhance(SHARPNESS)
+    curr_con = ImageEnhance.Contrast(enhanced_img)
+    enhanced_img = curr_con.enhance(CONTRAST)
+    enhanced_img = pil_to_cv2_image(enhanced_img)
+    return enhanced_img
 
 
 def get_edges(img):
@@ -57,6 +73,8 @@ def scan_img(img, img_name, save_steps=True, show_steps=True):
         cnt = max(contours, key = cv2.contourArea)
         x, y, w, h = cv2.boundingRect(cnt)  
         scanned_img = orig_img[y:y+h, x:x+w]        
+
+    scanned_img = image_enhancement(scanned_img)   
 
     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 3)
 

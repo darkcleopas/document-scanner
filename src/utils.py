@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from PIL import Image
 
 from config import DIM_LIMIT
 
@@ -47,3 +48,13 @@ def four_point_transform(img, rect):
 	warped = cv2.warpPerspective(img, M, (maxWidth, maxHeight))
 
 	return warped
+
+
+def pil_to_cv2_image(pil_img):
+	img_array = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR) 
+	return img_array
+
+
+def cv2_to_pil_image(img):
+	pil_img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+	return pil_img

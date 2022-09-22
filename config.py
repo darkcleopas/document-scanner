@@ -1,3 +1,8 @@
 IMG_DIR = "images"
 OUT_DIR = "output"
 DIM_LIMIT = 1080
+
+BRIGHTNESS = 1.0
+COLOR = 1.5
+CONTRAST = 1.5
+SHARPNESS = 8.3
